@@ -65,7 +65,7 @@ shinyServer(function(input, output,session) {
       
     if (input$lang=="en") 
       {
-      model = udpipe_load_model("D:\\Isha\\taba\\TABA Tutorial\\english-ud-2.0-170801.udpipe")
+      model = udpipe_load_model(".\\models\\english-ud-2.0-170801.udpipe")
       #model = udpipe_load_model("D:\\CBA\\T12\\TABA\\test shiny\\test1\\english-ud-2.0-170801.udpipe")
         }
       else {
