@@ -5,7 +5,7 @@
 # Find out more about building applications with Shiny here:
 # 
 #    http://shiny.rstudio.com/
-#
+# 11810105_isha
 
 library(shiny)
 #
@@ -50,11 +50,12 @@ shinyServer(function(input, output,session) {
     
   })
   
+  ############Display input text###################333
   output$text  <- renderPrint({
-    
     validate(
     need(input$file$datapath != "", "Please upload a text file"))
-       })
+    return(readLines(input$file$datapath))   
+    })
   
 ################Annotated Data Formation##########################
     anndata  <- reactive({
@@ -140,7 +141,8 @@ shinyServer(function(input, output,session) {
  #####Looking at which words are located in the same document/sentence/paragraph.
   
   output$gen_cooccur<-renderTable({
-    adata=anndata()
+    
+      adata=anndata()
     validate(need(length(input$xposchoice)>2 , "Please select atleast 2 xpos tags"))  
    
     if(input$lang=="en"){
@@ -171,7 +173,8 @@ shinyServer(function(input, output,session) {
                                            relevant = adata$upos %in% 
                                              postags() , 
                                            skipgram = 4) 
-      }
+    }
+  })
     
 #############Co-occurence Graph#####################
     
@@ -191,7 +194,7 @@ shinyServer(function(input, output,session) {
         geom_edge_link(aes(width = cooc, edge_alpha = cooc), 
                        edge_colour = "orange") +  
         geom_node_text(aes(label = name), col = "black", size = 5) +
-        theme_graph(base_family = "Calibri") +  
+        theme_graph(base_family = "Arial") +  
         theme(legend.position = "none") +
         labs(title = "Graph upto with 3 levels", 
              subtitle = "Nouns & Adjective")->g
@@ -209,4 +212,4 @@ shinyServer(function(input, output,session) {
   
       
 
-})
+
